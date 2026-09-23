@@ -1,0 +1,58 @@
+{
+  "auto_update_extensions": {
+    "sql": false
+  },
+  "edit_predictions": {
+    "mode": "eager"
+  },
+  "session": {
+    "trust_all_worktrees": true
+  },
+
+  "base_keymap": "JetBrains",
+
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+
+  "theme": {
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Gruvbox Dark Hard"
+  },
+  "languages": {
+      "SQL": {
+        "formatter": {
+          "external": {
+            "command": "sql-formatter",
+            "arguments": ["--language", "postgresql"]
+          }
+        },
+        "format_on_save": "on"
+      },
+      "Proto": {
+        "language_servers": ["buf", "!protols", "!protobuf-language-server", "..."],
+        "format_on_save": "on"
+      },
+      "Python": {
+        "language_servers": ["ty", "ruff", "!basedpyright", "!pyright"],
+        "format_on_save": "on",
+        "formatter": [
+          { "code_action": "source.organizeImports.ruff" },
+          { "code_action": "source.fixAll.ruff" },
+          { "language_server": { "name": "ruff" } }
+        ]
+      },
+      "Rust": {
+        "format_on_save": "on",
+        "formatter": "language_server"
+      }
+    },
+    "lsp": {
+      "rust-analyzer": {
+        "initialization_options": {
+          "check": { "command": "clippy" }
+        }
+      }
+    }
+
+}
