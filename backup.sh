@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-BACKUP_DIR="$HOME/.config/zed-backup"
+BACKUP_DIR="$HOME/zed-backup"
 EXT_DEST="$BACKUP_DIR/extensions"
 CFG_DEST="$BACKUP_DIR/config"
 
@@ -23,8 +23,13 @@ rsync -avL --delete "$EXT_SRC"/ "$EXT_DEST"/
 rsync -avL "$CFG_SRC"/settings.json "$CFG_DEST"/settings.json 2>/dev/null || true
 rsync -avL "$CFG_SRC"/keymap.json "$CFG_DEST"/keymap.json 2>/dev/null || true
 
+# Strip any embedded .git dirs so extensions are stored as plain files, not submodules
+echo "Stripping embedded .git directories..."
+find "$EXT_DEST" -mindepth 1 -maxdepth 3 -type d -name ".git" -print -exec rm -rf {} +
+
 cd "$BACKUP_DIR"
 git add -A
 git commit -m "Zed backup: $(date '+%Y-%m-%d %H:%M:%S')" || echo "Nothing new to commit"
-git push origin
+git push
+
 echo "Backup complete and pushed."
