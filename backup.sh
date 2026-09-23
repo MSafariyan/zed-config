@@ -26,6 +26,5 @@ rsync -avL "$CFG_SRC"/keymap.json "$CFG_DEST"/keymap.json 2>/dev/null || true
 cd "$BACKUP_DIR"
 git add -A
 git commit -m "Zed backup: $(date '+%Y-%m-%d %H:%M:%S')" || echo "Nothing new to commit"
-git push origin main
-
+git push origin
 echo "Backup complete and pushed."
